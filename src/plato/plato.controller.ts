@@ -1,4 +1,4 @@
-import {Controller, Get, Post, Put, Delete, Param, Body, HttpCode, HttpStatus} from '@nestjs/common';
+import {Controller, Get, Post, Put, Delete, Param, Body, HttpCode, HttpStatus } from '@nestjs/common';
 import { PlatoService } from './plato.service';
 import { PlatoEntity } from './plato.entity';
 
