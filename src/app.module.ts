@@ -16,7 +16,7 @@ import { RestaurantePlatoModule } from './restaurante-plato/restaurante-plato.mo
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'museum',
+      database: 'restaurantes_api',
       entities: [RestauranteEntity, PlatoEntity],
       dropSchema: true,
       synchronize: true
