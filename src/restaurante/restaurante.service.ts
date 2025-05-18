@@ -43,7 +43,7 @@ export class RestauranteService {
   }
 
   async create(restauranteData: Partial<RestauranteEntity>): Promise<RestauranteEntity> {
-    this.validarTipoCocina(restauranteData.cocina);
+    this.validarTipoCocina(restauranteData.cocina!);
     const restaurante = this.restauranteRepository.create(restauranteData);
     return this.restauranteRepository.save(restaurante);
   }

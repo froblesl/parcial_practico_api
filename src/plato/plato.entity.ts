@@ -1,4 +1,4 @@
-import { RestauranteEntity } from '../restaurante/restaurante.entity';
+import { RestauranteEntity } from 'src/restaurante/restaurante.entity';
 import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
@@ -10,13 +10,13 @@ export class PlatoEntity {
   nombre: string;
 
   @Column()
-  direccion: string;
+  descripcion: string;
+
+  @Column('float')
+  precio: number;
 
   @Column()
-  cocina: string;
-
-  @Column()
-  pagina_web: string;
+  categoria: string;
 
   @ManyToMany(() => RestauranteEntity, restaurante => restaurante.platos)
   restaurantes: RestauranteEntity[];

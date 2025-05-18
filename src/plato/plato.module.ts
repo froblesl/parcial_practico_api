@@ -1,10 +1,10 @@
 import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PlatoEntity } from './plato.entity';
-import { PlatoService } from './plato.service';
-import { PlatoController } from './plato.controller';
 import { RestauranteEntity } from '../restaurante/restaurante.entity';
 import { RestauranteModule } from '../restaurante/restaurante.module';
+import { PlatoService } from './plato.service';
+import { PlatoController } from './plato.controller';
 
 @Module({
   imports: [
