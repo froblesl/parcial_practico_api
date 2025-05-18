@@ -1,0 +1,366 @@
+{
+	"info": {
+		"_postman_id": "660f43e5-2c36-4c5c-b85d-6259da88db37",
+		"name": "Platos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42727546"
+	},
+	"item": [
+		{
+			"name": "Crear plato válido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();",
+							"pm.globals.set(\"dishId\", data.id);",
+							"pm.test(\"Status code is 201\", function () {",
+							"   pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Spaghetti2\",\n  \"descripcion\": \"Pasta italiana\",\n  \"precio\": 25,\n  \"categoria\": \"plato fuerte\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/dishes",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"dishes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear plato inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"   pm.response.to.have.status(400);",
+							"});",
+							"pm.test(\"Mensaje de error esperado\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.include(\"precio positivo\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Cereal\",\n  \"descripcion\": \"Desayuno\",\n  \"precio\": -5,\n  \"categoria\": \"desayuno\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/dishes",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"dishes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener todos los platos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test('Número de platos > 0', function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.length).to.be.greaterThan(0);",
+							"});",
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/dishes",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"dishes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener plato por ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/dishes/{{dishId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"dishes",
+						"{{dishId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obtener plato ID inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});",
+							"pm.test(\"Mensaje de error esperado\", function () {",
+							"   var data = pm.response.json();",
+							"   pm.expect(data.message).to.include(\"no encontrado\");",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/dishes/0",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"dishes",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar plato válido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"   pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Spaghetti Modificado\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/dishes/{{dishId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"dishes",
+						"{{dishId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar plato inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Fake\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/dishes/0",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"dishes",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar plato válido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {",
+							"   pm.response.to.have.status(204);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/dishes/{{dishId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"dishes",
+						"{{dishId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar plato inválido",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"   pm.response.to.have.status(404);",
+							"});"
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/dishes/0",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"dishes",
+						"0"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:3000",
+			"type": "string"
+		}
+	]
+}
