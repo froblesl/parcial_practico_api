@@ -1,8 +1,8 @@
 
-import { PlatoEntity } from './plato/plato.entity';
+import { RestauranteEntity } from 'src/restaurante/restaurante.entity';
 import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from 'typeorm';
 
-export class RestauranteEntity {
+export class PlatoEntity {
    @PrimaryGeneratedColumn('uuid')
    id: string;
 
@@ -15,8 +15,7 @@ export class RestauranteEntity {
    @Column()
    pagina_web: string;
 
-   @ManyToMany(() => PlatoEntity, plato => plato.restaurantes)
-   @JoinTable()
-   artists: PlatoEntity[];
+   @ManyToMany(() => RestauranteEntity, restaurante => restaurante.platos)
+   artist: PlatoEntity[];
 
 }
